@@ -1,75 +1,71 @@
 ![Project cover](cover.png)
 
-# Multi-Platform Banking System
+# WebShop – E‑commerce Web App
 #### Video Demo: (coming soon)
 
 ## Description
-Multi-Platform Banking System is a full-stack monorepo for retail-banking workflows. It includes a Spring Boot 3 (Java 21) core API with JWT authentication and role-based access, a React + Vite admin/web client, and a FastAPI microservice for KYC/verification. The system models accounts, customers, transactions, loans, and reporting, with clear separation of services and an emphasis on maintainability and production-ready expansion.
+WebShop is a lightweight Java e‑commerce application built with Jakarta Servlet/JSP, Hibernate ORM, and MySQL. It provides product browsing, user authentication, a shopping cart and checkout flow, and a minimal admin interface for managing products and inventory. The focus is a clear, deployable reference that favors simplicity over heavy frameworks.
 
 ---
 
 ## Technologies Used
-- Java 21, Spring Boot 3, Spring Security (JWT), JPA/Hibernate, MySQL
-- TypeScript, React (18/19), Vite, Tailwind CSS
-- Python 3, FastAPI, Uvicorn
-- OpenAPI/Swagger
+- Java 21
+- Jakarta Servlet 6 / JSP 3.1, JSTL
+- Hibernate ORM 6
+- MySQL 8
+- Maven
 
 ---
 
 ## How to Run the Project
 
-### 1) Clone the repo
+### 1. Clone the repo
 ```bash
-git clone https://github.com/<your-username>/banking-system.git
-cd banking-system
+git clone https://github.com/<your-username>/WebShop.git
+cd WebShop
 ```
 
-### 2) Start the Core API (Spring Boot)
+### 2. Configure the database
+- Create a MySQL database (e.g., `webshop`).
+- Update DB credentials/URL in your configuration (e.g., `src/main/resources/hibernate.cfg.xml` or `META-INF/persistence.xml`).
+- (Optional) Import seed data if a SQL file is provided.
+
+### 3. Build the app
 ```bash
-cd server
-./mvnw spring-boot:run
-# or: ./gradlew bootRun
-# API at http://localhost:8080
+mvn clean package
 ```
 
-### 3) Start the Web App (React + Vite)
-```bash
-cd web
-npm install
-npm run dev
-# Web at http://localhost:5173
-```
+### 4A. Run with Apache Tomcat 10+
+- Copy the generated WAR from `target/` (e.g., `webshop.war`) into your Tomcat `webapps/` directory.
+- Start Tomcat and open:
+    - http://localhost:8080/webshop/
 
-### 4) Start the AI/KYC Service (FastAPI)
+### 4B. Run with Jetty (if available)
 ```bash
-cd ai-service
-python -m venv .venv && source .venv/bin/activate  # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
-# Service at http://localhost:8000
+mvn jetty:run
+# App at http://localhost:8080/
 ```
-
-> Configure database and service URLs via `.env` files in each service (e.g., DB URL, JWT secret, API base URLs).
 
 ---
 
-## Example API Routes
-| Route                    | Method | Description                     |
-|--------------------------|--------|---------------------------------|
-| `/api/auth/login`        | POST   | Issue JWT for authenticated use |
-| `/api/customers`         | GET    | List customers                  |
-| `/api/accounts`          | GET    | List accounts                   |
-| `/api/transactions`      | POST   | Create a transaction            |
-| `/api/loans`             | GET    | List or view loans              |
-| `/docs` or `/swagger-ui` | GET    | OpenAPI documentation           |
+## Key Pages
+| Path                 | Description                       |
+|----------------------|-----------------------------------|
+| `/`                  | Home / product catalog            |
+| `/product?id=<id>`   | Product details                   |
+| `/cart`              | Shopping cart                     |
+| `/checkout`          | Checkout                          |
+| `/login`, `/register`| Authentication                    |
+| `/admin/products`    | Admin – product management        |
 
 ---
 
 ## Why This Project?
-To provide a pragmatic, end-to-end banking foundation that’s easy to extend: secure core services, a fast modern web client, and a focused AI/KYC microservice for real-world verification flows.
+To present a compact, classical Java web stack for a storefront—easy to deploy, easy to read, and suitable as a base for adding real-world features like payments, order history, and admin moderation.
 
 ---
 
 ## Acknowledgments
-- Spring, React, and FastAPI communities
-- OpenAPI/Swagger tooling
+- Jakarta EE / Servlet & JSP documentation
+- Hibernate ORM documentation
+- MySQL documentation
